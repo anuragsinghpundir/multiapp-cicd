@@ -1,27 +1,20 @@
-name: Deploy
-on: [push]
+name: Go CI
+
+on: [push, pull_request]
+
 jobs:
-  deploy:
-    runs-on: self-hosted   
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Magicking 😀
-        shell: bash
-        run: |
-          cd ~
-          cd /var/www/html/multiapp-cicd/go-app
-          sudo chown -R pundir:pundir /var/www/html/multiapp-cicd/go-app 
-      - name: Install Dependencies
-        shell: bash
-        run: |
-          cd /var/www/html/multiapp-cicd/go-app
-          go mod tidy
-      - name: Lint
-        shell: bash
-        run: |
-          cd /var/www/html/multiapp-cicd/go-app
-          golangci-lint run
-      - name: Test
-        shell: bash
-        run: |
-          cd /var/www/html/multiapp-cicd/go-app
-          go test -buildvcs=false ./...
+    - uses: actions/checkout@v2
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16
+    - name: Install dependencies
+      run: go mod tidy
+    - name: Lint
+      run: golangci-lint run
+    - name: Test
+      run: go test ./...
