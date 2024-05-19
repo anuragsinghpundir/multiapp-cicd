@@ -20,4 +20,4 @@ jobs:
         shell: bash
         run: |
           cd /var/www/html/multiapp-cicd/wordpress-app
-          sudo composer phpcs --standard=WordPress
+          sudo composer phpcs
