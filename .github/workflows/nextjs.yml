@@ -1,20 +1,27 @@
-name: Next.js CI
-
-on: [push, pull_request]
-
+name: Deploy-NextJS
+on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  deploy-nextjs_app:
+    runs-on: self-hosted   
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install dependencies
-      run: npm install
-    - name: Lint
-      run: npm run lint
-    - name: Test
-      run: npm run test
+      - name: Magicking 😀
+        shell: bash
+        run: |
+          cd ~
+          cd /var/www/html/multiapp-cicd/nextjs-app
+          sudo chown -R pundir:pundir /var/www/html/multiapp-cicd/nextjs-app 
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/nextjs-app
+          npm install
+      - name: Lint
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/nextjs-app
+          npm run lint
+      - name: Test
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/nextjs-app
+          npm run test
