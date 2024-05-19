@@ -1,23 +1,22 @@
-name: Go CI
-
-on: [push, pull_request]
-
+name: Deploy
+on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  deploy:
+    runs-on: self-hosted   
     steps:
-    - uses: actions/checkout@v3  # Use the latest version
-    - name: Set up Go
-      uses: actions/setup-go@v4  # Use the latest version
-      with:
-        go-version: 1.16
-    - name: Install dependencies
-      run: go mod tidy
-    - name: Install GolangCI-Lint
-      run: |
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.50.1
-    - name: Lint
-      run: golangci-lint run
-    - name: Test
-      run: go test -buildvcs=false ./...
+      - name: Magicking 😀
+        shell: bash
+        run: |
+          cd ~
+          cd /var/www/html/multiapp-cicd/go-app
+          sudo chown -R pundir:pundir /var/www/html/multiapp-cicd/go-app 
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/go-app
+          go mod tidy
+      - name: Test
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/go-app
+          go test -buildvcs=false ./...
