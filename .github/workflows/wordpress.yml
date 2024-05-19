@@ -1,18 +1,22 @@
-name: WordPress CI
-
-on: [push, pull_request]
-
+name: Deploy-Wordpress
+on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  deploy-wordpress_app:
+    runs-on: self-hosted   
     steps:
-    - uses: actions/checkout@v2
-    - name: Install PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '7.4'
-    - name: Install dependencies
-      run: composer install
-    - name: PHPCS
-      run: composer phpcs
+      - name: Magicking 😀
+        shell: bash
+        run: |
+          cd ~
+          cd /var/www/html/multiapp-cicd/wordpress-app
+          sudo chown -R pundir:pundir /var/www/html/multiapp-cicd/wordpress-app 
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/wordpress-app
+          sudo composer install
+      - name: PHPCS
+        shell: bash
+        run: |
+          cd /var/www/html/multiapp-cicd/wordpress-app
+          sudo composer phpcs
