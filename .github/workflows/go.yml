@@ -1,7 +1,7 @@
-name: Deploy
+name: Deploy-GO
 on: [push]
 jobs:
-  deploy:
+  deploy-go_app:
     runs-on: self-hosted   
     steps:
       - name: Magicking 😀
