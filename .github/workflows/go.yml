@@ -1,5 +1,8 @@
 name: Deploy-GO
-on: [push]
+on: 
+  push:
+    paths:
+      - 'go-app/**'
 jobs:
   deploy-go_app:
     runs-on: self-hosted   
