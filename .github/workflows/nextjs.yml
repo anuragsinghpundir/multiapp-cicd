@@ -1,5 +1,8 @@
 name: Deploy-NextJS
-on: [push]
+on:
+  push:
+    paths:
+      - 'nextjs-app/**'
 jobs:
   deploy-nextjs_app:
     runs-on: self-hosted   
