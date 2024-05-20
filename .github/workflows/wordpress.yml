@@ -1,5 +1,8 @@
 name: Deploy-Wordpress
-on: [push]
+on:
+  push:
+    paths:
+      - 'wordpress-app/**'
 jobs:
   deploy-wordpress_app:
     runs-on: self-hosted   
